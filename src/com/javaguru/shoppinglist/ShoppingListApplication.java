@@ -15,27 +15,53 @@ class ShoppingListApplication {
             try {
                 System.out.println("1. Create product");
                 System.out.println("2. Find product by id");
-                System.out.println("3. Exit");
-                Integer userInput = Integer.valueOf(scanner.nextLine());
+                System.out.println("3. Set discount");
+                System.out.println("4. Exit");
+                String userInput = scanner.nextLine();
                 switch (userInput) {
-                    case 1:
+                    case "1":
                         System.out.println("Enter product name: ");
                         String name = scanner.nextLine();
+                        if (name.length()<3||name.length()>25) {
+                            System.out.println("Error! Name must contain 3 to 25 characters.");
+                            break; }
                         System.out.println("Enter product price: ");
                         BigDecimal price = new BigDecimal(scanner.nextLine());
+                        if (price.compareTo(BigDecimal.ZERO)<0) {
+                            System.out.println("Error! Price cannot be less than 0.");
+                            break;}
+                        System.out.println("Enter product description");
+                        String description = scanner.nextLine();
+                        System.out.println("Enter product category: FOOD, DRINK, APPLIANCES, FURNISHINGS");
+                        ProductCategories category = ProductCategories.valueOf(scanner.nextLine());
                         Product product = new Product();
                         product.setName(name);
                         product.setPrice(price);
                         product.setId(productIdSequence);
+                        product.setDescription(description);
+                        product.setCategory(category);
                         productRepository.put(productIdSequence, product);
                         productIdSequence++;
                         System.out.println("Result: " + product.getId());
-                    case 2:
+                        break;
+                    case "2":
                         System.out.println("Enter product id: ");
                         long id = scanner.nextLong();
                         Product findProductResult = productRepository.get(id);
                         System.out.println(findProductResult);
-                    case 3:
+                        break;
+                    case "3":
+                        System.out.println("Enter product id: ");
+                        long idDisc = scanner.nextLong();
+                        System.out.println("Enter product discount (use whole numbers): ");
+                        int disc = scanner.nextInt();
+                        if (disc>101) {break;}
+                        Product productDisc = productRepository.get(idDisc);
+                        BigDecimal resultDiscPrice = productDisc.discountPrice(disc);
+                        productDisc.setPrice(resultDiscPrice);
+                        productRepository.put(idDisc, productDisc);
+                        break;
+                    case "4":
                         return;
                 }
             } catch (Exception e) {
