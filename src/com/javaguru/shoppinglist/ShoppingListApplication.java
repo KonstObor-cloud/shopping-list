@@ -22,14 +22,14 @@ class ShoppingListApplication {
                     case "1":
                         System.out.println("Enter product name: ");
                         String name = scanner.nextLine();
-                        if (name.length()<3||name.length()>25) {
+                        if (name.length() < 3 || name.length() > 25) {
                             System.out.println("Error! Name must contain 3 to 25 characters.");
                             break; }
                         System.out.println("Enter product price: ");
                         BigDecimal price = new BigDecimal(scanner.nextLine());
-                        if (price.compareTo(BigDecimal.ZERO)<0) {
+                        if (price.compareTo(BigDecimal.ZERO) < 0) {
                             System.out.println("Error! Price cannot be less than 0.");
-                            break;}
+                            break; }
                         System.out.println("Enter product description");
                         String description = scanner.nextLine();
                         System.out.println("Enter product category: FOOD, DRINK, APPLIANCES, FURNISHINGS");
@@ -52,21 +52,19 @@ class ShoppingListApplication {
                         break;
                     case "3":
                         System.out.println("Enter product id: ");
-                        long idDisc = scanner.nextLong();
+                        long idDiscount = scanner.nextLong();
                         System.out.println("Enter product discount (use whole numbers): ");
-                        int disc = scanner.nextInt();
-                        if (disc>101) {break;}
-                        Product productDisc = productRepository.get(idDisc);
-                        BigDecimal resultDiscPrice = productDisc.discountPrice(disc);
-                        productDisc.setPrice(resultDiscPrice);
-                        productRepository.put(idDisc, productDisc);
+                        int discount = scanner.nextInt();
+                        if (discount > 101) { break; }
+                        Product productDiscount = productRepository.get(idDiscount);
+                        BigDecimal resultDiscPrice = productDiscount.discountPrice(discount);
+                        productDiscount.setPrice(resultDiscPrice);
+                        productRepository.put(idDiscount, productDiscount);
                         break;
                     case "4":
                         return;
                 }
-            } catch (Exception e) {
-                System.out.println("Error! Please try again.");
-            }
+            } catch (Exception e) { System.out.println("Error! Please try again."); }
         }
     }
 }

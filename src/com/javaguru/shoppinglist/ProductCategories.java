@@ -1,5 +1,3 @@
 package com.javaguru.shoppinglist;
 
-public enum ProductCategories {
-    FOOD, DRINK, APPLIANCES, FURNISHINGS
-}
+public enum ProductCategories {FOOD, DRINK, APPLIANCES, FURNISHINGS}

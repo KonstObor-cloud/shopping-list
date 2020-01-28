@@ -32,18 +32,16 @@ public class Product {
         this.price = price;
     }
 
-    public void setCategory (ProductCategories category){
-        this.category=category;
+    public void setCategory(ProductCategories category) {
+        this.category = category;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public BigDecimal discountPrice (int discount) {
-        return (getPrice().divide(BigDecimal.valueOf(100)).multiply(BigDecimal.valueOf(discount)));
-    }
-
+    public BigDecimal discountPrice(int discount) {
+        return (getPrice().divide(BigDecimal.valueOf(100)).multiply(BigDecimal.valueOf(discount))); }
 
     @Override
     public String toString() {
