@@ -1,12 +1,14 @@
-package com.javaguru.shoppinglist;
+package com.javaguru.shoppinglist.Console;
+
+import com.javaguru.shoppinglist.Domain.Product;
+import com.javaguru.shoppinglist.Repository.ProductCategories;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-class ShoppingListApplication {
-
+public class ProductUIConsole {
     public static void main(String[] args) {
         Map<Long, Product> productRepository = new HashMap<>();
         Long productIdSequence = 0L;
@@ -22,14 +24,8 @@ class ShoppingListApplication {
                     case "1":
                         System.out.println("Enter product name: ");
                         String name = scanner.nextLine();
-                        if (name.length() < 3 || name.length() > 25) {
-                            System.out.println("Error! Name must contain 3 to 25 characters.");
-                            break; }
                         System.out.println("Enter product price: ");
                         BigDecimal price = new BigDecimal(scanner.nextLine());
-                        if (price.compareTo(BigDecimal.ZERO) < 0) {
-                            System.out.println("Error! Price cannot be less than 0.");
-                            break; }
                         System.out.println("Enter product description");
                         String description = scanner.nextLine();
                         System.out.println("Enter product category: FOOD, DRINK, APPLIANCES, FURNISHINGS");
@@ -40,6 +36,7 @@ class ShoppingListApplication {
                         product.setId(productIdSequence);
                         product.setDescription(description);
                         product.setCategory(category);
+                        product.setDiscount(BigDecimal.ZERO);
                         productRepository.put(productIdSequence, product);
                         productIdSequence++;
                         System.out.println("Result: " + product.getId());
@@ -53,18 +50,19 @@ class ShoppingListApplication {
                     case "3":
                         System.out.println("Enter product id: ");
                         long idDiscount = scanner.nextLong();
-                        System.out.println("Enter product discount (use whole numbers): ");
-                        int discount = scanner.nextInt();
-                        if (discount > 101) { break; }
-                        Product productDiscount = productRepository.get(idDiscount);
-                        BigDecimal resultDiscPrice = productDiscount.discountPrice(discount);
-                        productDiscount.setPrice(resultDiscPrice);
-                        productRepository.put(idDiscount, productDiscount);
+                        System.out.println("Enter product discount (whole or fractional): ");
+                        double discount = scanner.nextInt();
+                        Product findProductDiscountResult = productRepository.get(idDiscount);
+                        findProductDiscountResult.discountPrice(discount);
+                        System.out.println("Price with discount is : " +findProductDiscountResult.getPrice());
                         break;
                     case "4":
                         return;
                 }
-            } catch (Exception e) { System.out.println("Error! Please try again."); }
+            } catch (Exception e) {
+                System.out.println("Error! Please try again.");
+                e.printStackTrace();
+            }
         }
     }
 }
