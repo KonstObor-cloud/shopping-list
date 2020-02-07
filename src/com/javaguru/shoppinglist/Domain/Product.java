@@ -9,9 +9,10 @@ public class Product {
     private Long id;
     private String name;
     private BigDecimal price;
+    private BigDecimal discountedPrice;
     private ProductCategories category;
     private String description;
-    private BigDecimal discount=BigDecimal.ZERO;
+    private BigDecimal discount = BigDecimal.valueOf(0);
 
     public Long getId() {
         return id;
@@ -37,21 +38,21 @@ public class Product {
         return category;
     }
 
-    public BigDecimal getDiscount () {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount (BigDecimal discount) {
-        this.discount=discount;
-        BigDecimal discountTemp = this.getPrice().divide(BigDecimal.valueOf(100)).multiply(discount);
-        BigDecimal newPrice = this.getPrice().subtract(discountTemp);
-        this.setPrice(newPrice);
+    public BigDecimal getDiscountedPrice() {
+        return discountedPrice;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 
     public void setName(String name) {
         this.name = name;
     }
-
 
     public void setPrice(BigDecimal price) {
         this.price = price;
@@ -65,10 +66,8 @@ public class Product {
         this.description = description;
     }
 
-    public void discountPrice(double discount) {
-        BigDecimal discountTemp = this.getPrice().divide(BigDecimal.valueOf(100)).multiply(BigDecimal.valueOf(discount));
-        BigDecimal discountResult = this.getPrice().subtract(discountTemp);
-        this.setPrice(discountResult);
+    public void setDiscountedPrice(BigDecimal discountedPrice) {
+        this.discountedPrice = discountedPrice;
     }
 
     @Override
@@ -77,8 +76,10 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", discountedPrice=" + discountedPrice +
                 ", category=" + category +
                 ", description='" + description + '\'' +
+                ", discount=" + discount +
                 '}';
     }
 }
