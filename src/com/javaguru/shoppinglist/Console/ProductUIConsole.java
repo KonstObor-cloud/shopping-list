@@ -2,6 +2,7 @@ package com.javaguru.shoppinglist.Console;
 
 import com.javaguru.shoppinglist.Domain.Product;
 import com.javaguru.shoppinglist.Repository.ProductCategories;
+import com.javaguru.shoppinglist.Service.ProductService;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -36,7 +37,8 @@ public class ProductUIConsole {
                         product.setId(productIdSequence);
                         product.setDescription(description);
                         product.setCategory(category);
-                        product.setDiscount(BigDecimal.ZERO);
+                        product.setDiscount(BigDecimal.valueOf(0));
+                        product.setDiscountedPrice(product.getPrice());
                         productRepository.put(productIdSequence, product);
                         productIdSequence++;
                         System.out.println("Result: " + product.getId());
@@ -51,17 +53,17 @@ public class ProductUIConsole {
                         System.out.println("Enter product id: ");
                         long idDiscount = scanner.nextLong();
                         System.out.println("Enter product discount (whole or fractional): ");
-                        double discount = scanner.nextInt();
+                        BigDecimal discount = scanner.nextBigDecimal();
                         Product findProductDiscountResult = productRepository.get(idDiscount);
-                        findProductDiscountResult.discountPrice(discount);
-                        System.out.println("Price with discount is : " +findProductDiscountResult.getPrice());
+                        ProductService ProductServiceDiscount = new ProductService();
+                        ProductServiceDiscount.createDiscount(findProductDiscountResult, discount);
+                        System.out.println("Price with discount is : " + findProductDiscountResult.getDiscountedPrice());
                         break;
                     case "4":
                         return;
                 }
             } catch (Exception e) {
                 System.out.println("Error! Please try again.");
-                e.printStackTrace();
             }
         }
     }
