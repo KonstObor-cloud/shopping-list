@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class ProductValidationRuleDiscount implements ProductValidationRule {
     @Override
     public void validate(Product product) {
-        if (product.getCategory() == null) {
+        if (product.getDiscount() == null) {
             throw new IllegalArgumentException("Product category must not be null");
         }
         BigDecimal expectedDiscount = product.getDiscount();

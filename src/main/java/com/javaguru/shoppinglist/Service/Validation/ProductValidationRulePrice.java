@@ -11,7 +11,7 @@ public class ProductValidationRulePrice implements ProductValidationRule {
         if (product.getPrice() == null) {
             throw new IllegalArgumentException("Product price must not be null");
         }
-        if (product.getPrice().compareTo(BigDecimal.ZERO) < 0) {
+        if (product.getPrice().compareTo(BigDecimal.valueOf(0)) < 0) {
             System.out.println("Error! Price cannot be less than 0.");
         }
     }
