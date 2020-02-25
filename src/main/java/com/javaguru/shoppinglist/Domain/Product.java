@@ -1,10 +1,11 @@
 package com.javaguru.shoppinglist.Domain;
 
 import com.javaguru.shoppinglist.Repository.ProductCategories;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-
+@Component
 public class Product {
 
     private Long id;
