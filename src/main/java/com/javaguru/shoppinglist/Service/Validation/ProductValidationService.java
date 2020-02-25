@@ -1,20 +1,16 @@
 package com.javaguru.shoppinglist.Service.Validation;
 
 import com.javaguru.shoppinglist.Domain.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
-
+@Service
 public class ProductValidationService {
-
-    private Set<ProductValidationRule> validationRules = new HashSet<>();
-
-    public ProductValidationService() {
-        validationRules.add(new ProductValidationRuleName());
-        validationRules.add(new ProductValidationRulePrice());
-        validationRules.add(new ProductValidationRuleDescription());
-        validationRules.add(new ProductValidationRuleCategory());
-        validationRules.add(new ProductValidationRuleDiscount());
+    @Autowired
+    private final Set<ProductValidationRule> validationRules;
+    public ProductValidationService(Set<ProductValidationRule> validationRules) {
+        this.validationRules = validationRules;
     }
 
     public void validate(Product product) {

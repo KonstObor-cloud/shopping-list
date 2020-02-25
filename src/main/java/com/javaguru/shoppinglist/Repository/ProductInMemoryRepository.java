@@ -1,18 +1,18 @@
 package com.javaguru.shoppinglist.Repository;
 
 import com.javaguru.shoppinglist.Domain.Product;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Repository
 public class ProductInMemoryRepository {
     Map<Long, Product> productRepository = new HashMap<>();
     Long productIdSequence = 0L;
 
     public Product insert(Product product) {
-        product.setId(productIdSequence);
-        productRepository.put(productIdSequence, product);
-        productIdSequence++;
+        product.setId(productIdSequence++);
+        productRepository.put(product.getId(), product);
         return product;
     }
 
